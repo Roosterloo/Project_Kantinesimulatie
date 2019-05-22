@@ -1,9 +1,10 @@
-public class Persoon{
+public class Persoon {
 
     private int BSN;
     private String voornaam;
     private String achternaam;
-    private Datum geboortedatum;;
+    private Datum geboortedatum;
+    ;
     private char geslacht;
 
     public Persoon(int BSN, String voornaam, String achternaam, Datum geboortedatum, char geslacht) {
@@ -41,10 +42,16 @@ public class Persoon{
 
     public void setGeslacht(char geslacht) {
         geslacht = Character.toUpperCase(geslacht);
-        switch (geslacht){
-            case 'M': this.geslacht = geslacht; break;
-            case 'V': this.geslacht = geslacht; break;
-            default: System.out.println("De waarde is niet goed gezet!"); break;
+        switch (geslacht) {
+            case 'M':
+                this.geslacht = geslacht;
+                break;
+            case 'V':
+                this.geslacht = geslacht;
+                break;
+            default:
+                System.out.println("De waarde is niet goed gezet!");
+                break;
         }
     }
 
@@ -65,12 +72,20 @@ public class Persoon{
     }
 
     public String getGeslacht() {
-        if(geslacht == 'M'){
+        if (geslacht == 'M') {
             return "Man";
-        } else if (geslacht == 'V'){
+        } else if (geslacht == 'V') {
             return "Vrouw";
-        } else{
+        } else {
             return "Onbekend";
         }
+    }
+
+    public void tostring(){
+        System.out.println("BSN Nummer " + BSN);
+        System.out.println("Voornaam: " + voornaam);
+        System.out.println("Achternaam: " + achternaam);
+        System.out.println("Geboortedatum: " + getGeboortedatum());
+        System.out.println("Geslacht: " + getGeslacht());
     }
 }

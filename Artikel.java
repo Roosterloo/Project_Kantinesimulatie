@@ -26,4 +26,9 @@ public class Artikel{
     public void set_prijs(int prijs){
         this.prijs = prijs;
     }
+
+    public void tostring(){
+        System.out.println("Naam: " + naam);
+        System.out.println("Prijs:" + prijs);
+    }
 }
