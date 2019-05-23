@@ -3,14 +3,11 @@ import java.util.LinkedList;
 
 public class KassaRij {
     private ArrayList<Dienblad> dienblad;
-    private Dienblad klant;
 
     /**
      * Constructor
      */
     public KassaRij() { dienblad = new ArrayList<>();}
-
-    public KassaRij(Dienblad klant) { this.klant = klant;}
 
     /**
      * Persoon sluit achter in de rij aan
