@@ -44,19 +44,12 @@ public class Datum {
                     break;
 
                 case 2:
-                    boolean isSchrikkelJaar = false;
-                    int year = jaar % 4;
+                    boolean isSchrikkelJaar = true;
                     int year1 = jaar % 100;
                     int year2 = jaar % 400;
 
-                    if (year == 0) {
-                        isSchrikkelJaar = true;
-                        if (year1 == 0) {
-                            isSchrikkelJaar = false;
-                            if (year2 == 0) {
-                                isSchrikkelJaar = true;
-                            }
-                        }
+                    if (year1 == 0 && year2 != 0){
+                        isSchrikkelJaar = false;
                     }
 
                     if (isSchrikkelJaar && dag < 30 || !isSchrikkelJaar && dag < 29) {
