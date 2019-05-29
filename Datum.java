@@ -45,10 +45,11 @@ public class Datum {
 
                 case 2:
                     boolean isSchrikkelJaar = true;
+                    int year = jaar % 4;
                     int year1 = jaar % 100;
                     int year2 = jaar % 400;
 
-                    if (year1 == 0 && year2 != 0){
+                    if (year != 0 || year1 == 0 && year2 != 0){
                         isSchrikkelJaar = false;
                     }
 
