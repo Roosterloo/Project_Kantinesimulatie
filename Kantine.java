@@ -29,11 +29,11 @@ public class Kantine {
         this.kassarij.sluitAchteraan(dienblad);
     }
 
-     /**
+    /**
      * Deze methode handelt de rij voor de kassa af.
      */
     public void verwerkRijVoorKassa() {
-        while(this.kassarij.erIsEenRij()) {
+        while (this.kassarij.erIsEenRij()) {
             this.kassarij.eerstePersoonInRij();
         }
     }
@@ -44,7 +44,7 @@ public class Kantine {
      * @return hoeveelheid geld in kassa
      */
     public double hoeveelheidGeldInKassa() {
-       return this.kassa.hoeveelheidGeldInKassa();
+        return this.kassa.hoeveelheidGeldInKassa();
     }
 
     /**
@@ -53,7 +53,7 @@ public class Kantine {
      * @return het aantal gepasseerde artikelen
      */
     public int aantalArtikelen() {
-       return this.kassa.aantalArtikelen();
+        return this.kassa.aantalArtikelen();
     }
 
     /**
