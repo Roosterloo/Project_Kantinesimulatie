@@ -7,8 +7,8 @@ public class Kantine {
      * Constructor
      */
     public Kantine() {
-        kassarij = new KassaRij();
-        kassa = new Kassa(kassarij);
+        this.kassarij = new KassaRij();
+        this.kassa = new Kassa(kassarij);
     }
 
     /**
@@ -17,16 +17,24 @@ public class Kantine {
      * en plaats deze op het dienblad. Tenslotte sluit de
      * Persoon zich aan bij de rij voor de kassa.
      */
-    public void loopPakSluitAan(Artikel artikel1, Artikel artikel2, Dienblad dienblad) {
+    public void loopPakSluitAan() {
+        Persoon persoon = new Persoon();
+        Artikel artikel = new Artikel();
+        Artikel artikel1 = new Artikel();
+        Dienblad dienblad = new Dienblad();
 
+        dienblad.voegToe(artikel);
+        dienblad.voegToe(artikel1);
+        dienblad.setKlant(persoon);
+        this.kassarij.sluitAchteraan(dienblad);
     }
 
      /**
      * Deze methode handelt de rij voor de kassa af.
      */
     public void verwerkRijVoorKassa() {
-        while() {
-            // omitted
+        while(this.kassarij.erIsEenRij()) {
+            this.kassarij.eerstePersoonInRij();
         }
     }
 
@@ -36,7 +44,7 @@ public class Kantine {
      * @return hoeveelheid geld in kassa
      */
     public double hoeveelheidGeldInKassa() {
-       // method body omitted
+       return this.kassa.hoeveelheidGeldInKassa();
     }
 
     /**
@@ -45,7 +53,7 @@ public class Kantine {
      * @return het aantal gepasseerde artikelen
      */
     public int aantalArtikelen() {
-        // method body omitted
+       return this.kassa.aantalArtikelen();
     }
 
     /**
@@ -53,6 +61,6 @@ public class Kantine {
      * het aantal artikelen en "leegt" de inhoud van de kassa.
      */
     public void resetKassa() {
-        // method body omitted
+        this.kassa.resetKassa();
     }
 }

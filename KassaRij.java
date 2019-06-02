@@ -7,7 +7,9 @@ public class KassaRij {
     /**
      * Constructor
      */
-    public KassaRij() { dienblad = new ArrayList<>();}
+    public KassaRij() {
+        dienblad = new ArrayList<>();
+    }
 
     /**
      * Persoon sluit achter in de rij aan
@@ -27,12 +29,12 @@ public class KassaRij {
      */
     public Dienblad eerstePersoonInRij() {
         Dienblad volgende_klant = null;
-        if (erIsEenRij() == true){
+        if (erIsEenRij() == true) {
             volgende_klant = dienblad.get(0);
             dienblad.remove(0);
         }
         return volgende_klant;
-        }
+    }
 
     /**
      * Methode kijkt of er personen in de rij staan.
@@ -42,13 +44,12 @@ public class KassaRij {
     public boolean erIsEenRij() {
         if (dienblad.size() == 0) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
 
-    public void rijlengte_tostring(){
+    public void rijlengte_tostring() {
         System.out.println("Er staan op het moment " + dienblad.size() + " mensen in de rij");
     }
 }
