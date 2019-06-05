@@ -2,13 +2,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class KassaRij {
-    private ArrayList<Dienblad> dienblad;
+    private LinkedList<Dienblad> dienblad;
 
     /**
      * Constructor
      */
     public KassaRij() {
-        dienblad = new ArrayList<>();
+        dienblad = new LinkedList<>();
     }
 
     /**
@@ -29,7 +29,7 @@ public class KassaRij {
      */
     public Dienblad eerstePersoonInRij() {
         Dienblad volgende_klant = null;
-        if (erIsEenRij() == true) {
+        if (erIsEenRij()) {
             volgende_klant = dienblad.get(0);
             dienblad.remove(0);
         }
