@@ -5,6 +5,7 @@ public class Kassa {
     private KassaRij kassarij;
     private double kassatotaal;
     private int gepasseerdeartikelen;
+
     /**
      * Constructor
      */
@@ -19,8 +20,14 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        gepasseerdeartikelen += klant.getAantalArtikelen();
-        kassatotaal += klant.getTotaalPrijs();
+        Iterator<Artikel> artikelen = klant.getArtikelIterator();
+        double totaal = 0;
+        while (artikelen.hasNext()) {
+            Artikel artikel = artikelen.next();
+            gepasseerdeartikelen++;
+            totaal = artikel.get_prijs();
+        }
+        this.kassatotaal = totaal;
     }
 
 

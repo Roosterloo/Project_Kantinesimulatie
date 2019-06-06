@@ -27,14 +27,12 @@ public class KantineSimulatie {
             for (int p = 0; p < 10 + i; p++){
                 kantine.loopPakSluitAan();
             }
-            // verwerk rij voor de kassa
+            // voert de kassa methodes uit
             kantine.verwerkRijVoorKassa();
 
-            // toon dagtotalen (artikelen en geld in kassa)
-            kantine.hoeveelheidGeldInKassa();
+            //toont de data in de kassa en reset deze
+            kantine.informatie_kassa();
 
-            // reset de kassa voor de volgende dag
-            kantine.resetKassa();
         }
     }
 

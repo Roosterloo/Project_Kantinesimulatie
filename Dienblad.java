@@ -1,3 +1,4 @@
+import javax.swing.text.Position;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
@@ -26,29 +27,6 @@ public class Dienblad {
         artikelen.add(artikel);
     }
 
-    /**
-     * Methode om aantal artikelen op dienblad te tellen
-     *
-     * @return Het aantal artikelen
-     */
-    public int getAantalArtikelen() {
-        return artikelen.size();
-    }
-
-    /**
-     * Methode om de totaalprijs van de artikelen
-     * op dienblad uit te rekenen
-     *
-     * @return De totaalprijs
-     */
-    public double getTotaalPrijs() {
-        double totaal = 0;
-        for(Artikel art : artikelen){
-            totaal = totaal + art.get_prijs();
-        }
-        return totaal;
-    }
-
     public Persoon getKlant() {
         return klant;
     }
@@ -56,5 +34,11 @@ public class Dienblad {
     public void setKlant(Persoon klant) {
         this.klant = klant;
     }
+
+
+    public Iterator<Artikel> getArtikelIterator(){
+        return artikelen.iterator();
+    }
 }
+
 
