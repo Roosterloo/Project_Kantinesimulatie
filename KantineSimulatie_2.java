@@ -119,7 +119,7 @@ public class KantineSimulatie_2 {
                 Persoon persoon = new Persoon();
                 Dienblad dienblad = new Dienblad();
                 dienblad.setKlant(persoon);
-                int aantalartikelen = 5;
+                int aantalartikelen = AANTAL_ARTIKELEN;
 
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
@@ -132,10 +132,7 @@ public class KantineSimulatie_2 {
 
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
-                for(String str : artikelen){
-                    dienblad.voegToe(kantineaanbod.getArtikel(str));
-                }
-                kantine.loopPakSluitAan(dienblad);
+                kantine.loopPakSluitAan(dienblad, artikelen);
             }
 
             // verwerk rij voor de kassa

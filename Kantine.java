@@ -18,7 +18,10 @@ public class Kantine {
      * en plaats deze op het dienblad. Tenslotte sluit de
      * Persoon zich aan bij de rij voor de kassa.
      */
-    public void loopPakSluitAan(Dienblad dienblad) {
+    public void loopPakSluitAan(Dienblad dienblad, String[] artikelnamen) {
+        for(String art : artikelnamen){
+            dienblad.voegToe(kantineAanbod.getArtikel(art));
+        }
         this.kassarij.sluitAchteraan(dienblad);
     }
 
@@ -37,8 +40,8 @@ public class Kantine {
         this.kassa.resetKassa();
     }
 
-    public void setKantineAanbod(KantineAanbod kantineAanbod){
-        this.kantineAanbod = kantineAanbod;
+    public void setKantineAanbod(KantineAanbod kantineaanbod){
+        this.kantineAanbod = kantineaanbod;
     }
 
     public double hoeveelheidGeldInKassa(){
@@ -47,5 +50,9 @@ public class Kantine {
 
     public void resetKassa(){
         kassa.resetKassa();
+    }
+
+    public KantineAanbod getKantineAanbod() {
+        return kantineAanbod;
     }
 }
