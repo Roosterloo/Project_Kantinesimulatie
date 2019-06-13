@@ -1,4 +1,4 @@
-public class KantineSimulatie {
+public class KantineSimulatie_1 {
 
     private Kantine kantine;
 
@@ -7,7 +7,7 @@ public class KantineSimulatie {
     /**
      * Constructor
      */
-    public KantineSimulatie() {
+    public KantineSimulatie_1() {
         kantine = new Kantine();
     }
 
@@ -25,7 +25,7 @@ public class KantineSimulatie {
             int personen = 10 + i;
             // for lus voor personen
             for (int p = 0; p < personen; p++) {
-                kantine.loopPakSluitAan();
+                //kantine.loopPakSluitAan();
             }
             // voert de kassa methodes uit
             kantine.verwerkRijVoorKassa();
@@ -40,8 +40,8 @@ public class KantineSimulatie {
      * Start een simulatie
      */
     public static void main(String[] args) {
-        KantineSimulatie kantinesim = new KantineSimulatie();
-        int dagen;
+        KantineSimulatie_1 kantinesim = new KantineSimulatie_1();
+        int dagen = 0;
 
         if (args.length == 0) {
             dagen = DAGEN;
