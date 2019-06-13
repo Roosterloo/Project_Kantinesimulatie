@@ -45,7 +45,7 @@ public class KantineAanbod {
      * Private methode om de lijst van artikelen te krijgen op basis van de    
      * naam van het artikel. Retourneert null als artikel niet bestaat.
      */
-    ArrayList<Artikel> getArrayList(String productnaam) {
+    private ArrayList<Artikel> getArrayList(String productnaam) {
          return aanbod.get(productnaam); 
     }
 
@@ -76,7 +76,7 @@ public class KantineAanbod {
      * @param //naam (van artikel)
      * @return artikel (of null)
      */
-    Artikel getArtikel(String productnaam) {
+    public Artikel getArtikel(String productnaam) {
         return getArtikel(getArrayList(productnaam));
     }
 

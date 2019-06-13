@@ -40,16 +40,16 @@ public class Kantine {
         this.kassa.resetKassa();
     }
 
-    public void setKantineAanbod(KantineAanbod kantineaanbod){
-        this.kantineAanbod = kantineaanbod;
-    }
-
     public double hoeveelheidGeldInKassa(){
         return kassa.hoeveelheidGeldInKassa();
     }
 
     public void resetKassa(){
         kassa.resetKassa();
+    }
+
+    public void setKantineAanbod(KantineAanbod kantineaanbod){
+        this.kantineAanbod = kantineaanbod;
     }
 
     public KantineAanbod getKantineAanbod() {
