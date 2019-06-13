@@ -1,9 +1,9 @@
 public class Artikel{
 
     private String naam;
-    private int prijs;
+    private double prijs;
 
-    public Artikel (String naam, int prijs){
+    public Artikel (String naam, double prijs){
         this.naam = naam;
         this.prijs = prijs;
     }
@@ -15,7 +15,7 @@ public class Artikel{
         return this.naam;
     }
 
-    public int get_prijs(){
+    public double get_prijs(){
         return this.prijs;
     }
 
@@ -23,7 +23,7 @@ public class Artikel{
         this.naam = naam;
     }
 
-    public void set_prijs(int prijs){
+    public void set_prijs(double prijs){
         this.prijs = prijs;
     }
 

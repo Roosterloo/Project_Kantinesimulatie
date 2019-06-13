@@ -45,7 +45,7 @@ public class KantineAanbod {
      * Private methode om de lijst van artikelen te krijgen op basis van de    
      * naam van het artikel. Retourneert null als artikel niet bestaat.
      */
-    private ArrayList<Artikel> getArrayList(String productnaam) {
+    ArrayList<Artikel> getArrayList(String productnaam) {
          return aanbod.get(productnaam); 
     }
 
@@ -54,7 +54,7 @@ public class KantineAanbod {
      * Retourneert null als de stapel leeg is.
      */
     private Artikel getArtikel(ArrayList<Artikel> stapel) {
-        if (stapel==null) { 
+        if (stapel==null) {
             return null;
         }
         if (stapel.size()==0)
@@ -65,7 +65,7 @@ public class KantineAanbod {
         {
             Artikel a=stapel.get(0);
             stapel.remove(0);
-            if(stapel.size()<=10)vulVoorraadAan(a.getNaam());
+            if(stapel.size()<=10)vulVoorraadAan(a.get_naam());
             return a;
         }
     }
@@ -73,10 +73,14 @@ public class KantineAanbod {
     /**
      * Publieke methode om een artikel via naam van de stapel te pakken.
      * Retouneert null als artikel niet bestaat of niet op voorraad is.
-     * @param naam (van artikel)
+     * @param //naam (van artikel)
      * @return artikel (of null)
      */
-    public Artikel getArtikel(String productnaam) {
+    Artikel getArtikel(String productnaam) {
         return getArtikel(getArrayList(productnaam));
+    }
+
+    void vulVoorraadAaan(String productnaam){
+        vulVoorraadAan(productnaam);
     }
 }
