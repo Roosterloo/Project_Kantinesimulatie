@@ -36,8 +36,9 @@ public class Kassa {
             double korting = ((KortingskaartHouder) k).geefKortingsPercentage();
             modifier = modifier - korting;
             if(((KortingskaartHouder) k).heeftMaximum()){
-                if((totaal * korting) > ((KortingskaartHouder) k).geefMaximum()) {
-                    totaal = totaal - ((KortingskaartHouder) k).geefMaximum();
+                double max = ((KortingskaartHouder) k).geefMaximum();
+                if((totaal * korting) > max) {
+                    totaal = totaal - max;
                 } else {
                     totaal = totaal * modifier;
                 }
