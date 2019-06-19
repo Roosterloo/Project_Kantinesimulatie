@@ -11,8 +11,6 @@ public class Kassa {
      */
     public Kassa(KassaRij kassarij) {
         this.kassarij = kassarij;
-        this.kassatotaal = 0;
-        this.gepasseerdeartikelen = 0;
     }
 
     /**
@@ -25,13 +23,29 @@ public class Kassa {
      */
     public void rekenAf(Dienblad klant) {
         Iterator<Artikel> artikelen = klant.getArtikelIterator();
+        double modifier = 1;
         double totaal = 0;
         while (artikelen.hasNext()) {
             Artikel artikel = artikelen.next();
             gepasseerdeartikelen++;
             totaal = totaal + artikel.get_prijs();
         }
-        Betaalwijze b = klant.getKlant().getBetaalwijze();
+        Persoon k = klant.getKlant();
+        Betaalwijze b = k.getBetaalwijze();
+        if(k instanceof  KortingskaartHouder){
+            double korting = ((KortingskaartHouder) k).geefKortingsPercentage();
+            modifier = modifier - korting;
+            if(((KortingskaartHouder) k).heeftMaximum()){
+                if((totaal * korting) > ((KortingskaartHouder) k).geefMaximum()) {
+                    totaal = totaal - ((KortingskaartHouder) k).geefMaximum();
+                } else {
+                    totaal = totaal * modifier;
+                }
+            }
+            else {
+                totaal = totaal * modifier;
+            }
+        }
         if(!b.betaal(totaal)){
             System.out.println("De betaling kon niet voltooid worden");
         } else{

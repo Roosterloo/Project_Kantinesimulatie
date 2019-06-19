@@ -1,4 +1,4 @@
-public class KantineMedewerker extends Persoon{
+public class KantineMedewerker extends Persoon implements KortingskaartHouder{
 
     private int medewerkersnummer;
     private Boolean kassamedewerker;
@@ -23,5 +23,17 @@ public class KantineMedewerker extends Persoon{
 
     public Boolean getKassamedewerker() {
         return kassamedewerker;
+    }
+
+    public double geefKortingsPercentage() {
+        return 0.35;
+    }
+
+    public boolean heeftMaximum() {
+        return false;
+    }
+
+    public double geefMaximum() {
+        return 0;
     }
 }
