@@ -9,7 +9,11 @@ public class Kassa {
     /**
      * Constructor
      */
-    public Kassa(KassaRij kassarij) { this.kassarij = kassarij;}
+    public Kassa(KassaRij kassarij) {
+        this.kassarij = kassarij;
+        this.kassatotaal = 0;
+        this.gepasseerdeartikelen = 0;
+    }
 
     /**
      * Vraag het aantal artikelen en de totaalprijs op.
@@ -25,9 +29,15 @@ public class Kassa {
         while (artikelen.hasNext()) {
             Artikel artikel = artikelen.next();
             gepasseerdeartikelen++;
-            totaal = artikel.get_prijs();
+            totaal = totaal + artikel.get_prijs();
         }
-        this.kassatotaal = totaal;
+        Betaalwijze b = klant.getKlant().getBetaalwijze();
+        if(!b.betaal(totaal)){
+            System.out.println("De betaling kon niet voltooid worden");
+        } else{
+            b.betaal(totaal);
+            this.kassatotaal = kassatotaal + totaal;
+        }
     }
 
 

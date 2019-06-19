@@ -4,7 +4,7 @@ public class Persoon {
     private String voornaam;
     private String achternaam;
     private Datum geboortedatum;
-    ;
+    private Betaalwijze betaalwijze;
     private char geslacht;
 
     public Persoon(int BSN, String voornaam, String achternaam, Datum geboortedatum, char geslacht) {
@@ -87,5 +87,13 @@ public class Persoon {
         System.out.println("Achternaam: " + achternaam);
         System.out.println("Geboortedatum: " + getGeboortedatum());
         System.out.println("Geslacht: " + getGeslacht());
+    }
+
+    public Betaalwijze getBetaalwijze() {
+        return betaalwijze;
+    }
+
+    public void setBetaalwijze(Betaalwijze betaalwijze) {
+        this.betaalwijze = betaalwijze;
     }
 }
