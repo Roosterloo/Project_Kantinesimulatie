@@ -54,9 +54,9 @@ public class KantineSimulatie_2 {
      * Methode om een array van random getallen liggend tussen
      * min en max van de gegeven lengte te genereren
      *
-     * @param lengte
-     * @param min
-     * @param max
+     * @param //lengte
+     * @param //min
+     * @param //max
      * @return De array met random getallen
      */
     private int[] getRandomArray(int lengte, int min, int max) {
@@ -72,8 +72,8 @@ public class KantineSimulatie_2 {
      * Methode om een random getal tussen min(incl)
      * en max(incl) te genereren.
      *
-     * @param min
-     * @param max
+     * @param //min
+     * @param //max
      * @return Een random getal
      */
     private int getRandomValue(int min, int max) {
@@ -138,16 +138,19 @@ public class KantineSimulatie_2 {
                 if (randomint < 89) {
                     Student student = new Student(0, "", "", null, 'M', 0, "");
                     System.out.println(student);
+                    toString(student);
                     aantal_studenten ++;
 
                 } else if (randomint > 89 && randomint < 99) {
                     Docent docent = new Docent(0, "", "", null, 'M', "", "");
                     System.out.println(docent);
+                    toString(docent);
                     aantal_docenten ++;
 
                 } else {
                     KantineMedewerker kantinemedewerker = new KantineMedewerker(0, "", "", null, 'M', 0, false);
                     System.out.println(kantinemedewerker);
+                    toString(kantinemedewerker);
                     aantal_medewerkers ++;
                 }
 
@@ -173,9 +176,8 @@ public class KantineSimulatie_2 {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Deze klant was een:" + getClass().getName();
+    private void toString(Persoon p) {
+        System.out.println("Deze klant was een: " + p.getClass().getName());
     }
 
     public static void main(String[] args) {
