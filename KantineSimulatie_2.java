@@ -10,6 +10,8 @@ public class KantineSimulatie_2 {
 
     // random generator
     private Random random;
+    private Random random2;
+    private Random random3;
 
     // aantal artikelen
     private static final int AANTAL_ARTIKELEN = 4;
@@ -40,6 +42,8 @@ public class KantineSimulatie_2 {
     public KantineSimulatie_2() {
         kantine = new Kantine();
         random = new Random();
+        random2 = new Random();
+        random3 = new Random();
         int[] hoeveelheden = getRandomArray(
             AANTAL_ARTIKELEN,
             MIN_ARTIKELEN_PER_SOORT,
@@ -84,7 +88,7 @@ public class KantineSimulatie_2 {
      * Methode om op basis van een array van indexen voor de array
      * artikelnamen de bijhorende array van artikelnamen te maken
      *
-     * @param indexen
+     * @param //indexen
      * @return De array met artikelnamen
      */
     private String[] geefArtikelNamen(int[] indexen) {
@@ -102,7 +106,7 @@ public class KantineSimulatie_2 {
      * Deze methode simuleert een aantal dagen
      * in het verloop van de kantine
      *
-     * @param dagen
+     * @param //dagen
      */
     public void simuleer(int dagen) {
         // for lus voor dagen
@@ -118,12 +122,60 @@ public class KantineSimulatie_2 {
             // laat de personen maar komen...
             for(int j = 0; j < aantalpersonen; j++) {
 
-                // maak persoon en dienblad aan, koppel ze
-                // en bedenk hoeveel artikelen worden gepakt
-                Persoon persoon = new Persoon();
+                // maakt een dienblad aan
+                // bedenk hoeveel artikelen worden gepakt
                 Dienblad dienblad = new Dienblad();
-                dienblad.setKlant(persoon);
                 int aantalartikelen = AANTAL_ARTIKELEN;
+
+                // Genereert een Persoon en geeft een betaalwijze
+                int randomint = random.nextInt(100);
+                int randombetaal = random2.nextInt(2);
+                int sal = random3.nextInt(2500);
+                if (randomint < 89) {
+                    Student student = new Student(0, "", "", null, 'M', 0, "");
+                    dienblad.setKlant(student);
+                    if(randombetaal == 0){
+                        Betaalwijze pinpas = new Pinpas();
+                        pinpas.saldo = sal;
+                        student.setBetaalwijze(pinpas);
+                    } else if (randombetaal == 1){
+                        Betaalwijze contact = new Contant();
+                        contact.saldo = sal;
+                        student.setBetaalwijze(contact);
+                    }
+                    toString(student);
+                    aantal_studenten ++;
+
+                } else if (randomint > 89 && randomint < 99) {
+                    Docent docent = new Docent(0, "", "", null, 'M', "", "");
+                    dienblad.setKlant(docent);
+                    if(randombetaal == 0){
+                        Betaalwijze pinpas = new Pinpas();
+                        pinpas.saldo = sal;
+                        docent.setBetaalwijze(pinpas);
+                    } else if (randombetaal == 1){
+                        Betaalwijze contact = new Contant();
+                        contact.saldo = sal;
+                        docent.setBetaalwijze(contact);
+                    }
+                    toString(docent);
+                    aantal_docenten ++;
+
+                } else {
+                    KantineMedewerker kantinemedewerker = new KantineMedewerker(0, "", "", null, 'M', 0, false);
+                    dienblad.setKlant(kantinemedewerker);
+                    if(randombetaal == 0){
+                        Betaalwijze pinpas = new Pinpas();
+                        pinpas.saldo = sal;
+                        kantinemedewerker.setBetaalwijze(pinpas);
+                    } else if (randombetaal == 1){
+                        Betaalwijze contact = new Contant();
+                        contact.saldo = sal;
+                        kantinemedewerker.setBetaalwijze(contact);
+                    }
+                    toString(kantinemedewerker);
+                    aantal_medewerkers ++;
+                }
 
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
@@ -134,25 +186,6 @@ public class KantineSimulatie_2 {
                 // de indexen hierboven
                 String[] artikelen = geefArtikelNamen(tepakken);
 
-                int randomint = random.nextInt(100);
-                if (randomint < 89) {
-                    Student student = new Student(0, "", "", null, 'M', 0, "");
-                    System.out.println(student);
-                    toString(student);
-                    aantal_studenten ++;
-
-                } else if (randomint > 89 && randomint < 99) {
-                    Docent docent = new Docent(0, "", "", null, 'M', "", "");
-                    System.out.println(docent);
-                    toString(docent);
-                    aantal_docenten ++;
-
-                } else {
-                    KantineMedewerker kantinemedewerker = new KantineMedewerker(0, "", "", null, 'M', 0, false);
-                    System.out.println(kantinemedewerker);
-                    toString(kantinemedewerker);
-                    aantal_medewerkers ++;
-                }
 
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
@@ -177,6 +210,7 @@ public class KantineSimulatie_2 {
     }
 
     private void toString(Persoon p) {
+        System.out.println("De naam van deze klant klant is: " + p.getVoornaam() + " " + p.getAchternaam());
         System.out.println("Deze klant was een: " + p.getClass().getName());
     }
 

@@ -17,7 +17,7 @@ public class Pinpas extends Betaalwijze {
        if(saldo + kredietlimiet >= tebetalen){
            saldo = saldo - tebetalen;
        } else {
-           String message = "Niet genoeg geld";
+           String message = "Deze persoon heeft niet genoeg geld!";
            throw new TeWeinigGeldException(message);
        }
     }

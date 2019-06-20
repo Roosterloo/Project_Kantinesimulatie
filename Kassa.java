@@ -50,7 +50,7 @@ public class Kassa {
             b.betaal(totaal);
             this.kassatotaal = kassatotaal + totaal;
         }catch(TeWeinigGeldException e){
-            System.out.println("Betaling mislukt " + klant.getKlant().getVoornaam() + " heeft niet genoeg geld");
+            System.out.println("De Betaling is mislukt " + k.getVoornaam() + " heeft niet genoeg geld!");
             e.printStackTrace();
         }
     }

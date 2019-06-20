@@ -6,7 +6,7 @@ public class Contant extends Betaalwijze {
         if(saldo >= tebetalen){
             saldo = saldo - tebetalen;
         } else {
-            String message = "Niet genoeg geld";
+            String message = "Deze persoon heeft niet genoeg geld!";
             throw new TeWeinigGeldException(message);
         }
     }
