@@ -32,26 +32,26 @@ public class Kassa {
         }
         Persoon k = klant.getKlant();
         Betaalwijze b = k.getBetaalwijze();
-        if(k instanceof  KortingskaartHouder){
+        if (k instanceof KortingskaartHouder) {
             double korting = ((KortingskaartHouder) k).geefKortingsPercentage();
             modifier = modifier - korting;
-            if(((KortingskaartHouder) k).heeftMaximum()){
+            if (((KortingskaartHouder) k).heeftMaximum()) {
                 double max = ((KortingskaartHouder) k).geefMaximum();
-                if((totaal * korting) > max) {
+                if ((totaal * korting) > max) {
                     totaal = totaal - max;
                 } else {
                     totaal = totaal * modifier;
                 }
-            }
-            else {
+            } else {
                 totaal = totaal * modifier;
             }
         }
-        if(!b.betaal(totaal)){
-            System.out.println("De betaling kon niet voltooid worden");
-        } else{
+        try {
             b.betaal(totaal);
             this.kassatotaal = kassatotaal + totaal;
+        }catch(TeWeinigGeldException e){
+            System.out.println("Betaling mislukt " + klant.getKlant().getVoornaam() + " heeft niet genoeg geld");
+            e.printStackTrace();
         }
     }
 

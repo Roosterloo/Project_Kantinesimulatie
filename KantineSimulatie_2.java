@@ -109,7 +109,11 @@ public class KantineSimulatie_2 {
         for(int i = 0; i < dagen; i++) {
 
             // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = 15 ;
+            int aantalpersonen = 100 ;
+
+            int aantal_studenten = 0;
+            int aantal_docenten = 0;
+            int aantal_medewerkers = 0;
 
             // laat de personen maar komen...
             for(int j = 0; j < aantalpersonen; j++) {
@@ -130,10 +134,33 @@ public class KantineSimulatie_2 {
                 // de indexen hierboven
                 String[] artikelen = geefArtikelNamen(tepakken);
 
+                int randomint = random.nextInt(100);
+                if (randomint < 89) {
+                    Student student = new Student(0, "", "", null, 'M', 0, "");
+                    System.out.println(student);
+                    aantal_studenten ++;
+
+                } else if (randomint > 89 && randomint < 99) {
+                    Docent docent = new Docent(0, "", "", null, 'M', "", "");
+                    System.out.println(docent);
+                    aantal_docenten ++;
+
+                } else {
+                    KantineMedewerker kantinemedewerker = new KantineMedewerker(0, "", "", null, 'M', 0, false);
+                    System.out.println(kantinemedewerker);
+                    aantal_medewerkers ++;
+                }
+
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
                 kantine.loopPakSluitAan(dienblad, artikelen);
             }
+
+            //print hoeveelheid van elk type klant
+            System.out.println(aantal_studenten);
+            System.out.println(aantal_docenten);
+            System.out.println(aantal_medewerkers);
+
 
             // verwerk rij voor de kassa
             kantine.verwerkRijVoorKassa();
@@ -144,6 +171,11 @@ public class KantineSimulatie_2 {
             // reset de kassa voor de volgende dag
             kantine.resetKassa();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Deze klant was een:" + getClass().getName();
     }
 
     public static void main(String[] args) {
