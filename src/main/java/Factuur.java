@@ -1,27 +1,42 @@
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.io.Serializable;
 import java.util.Iterator;
 
-public class Kassa {
-    private KassaRij kassarij;
-    private double kassatotaal;
-    private int gepasseerdeartikelen;
+public class Factuur implements Serializable {
 
-    /**
-     * Constructor
-     */
-    public Kassa(KassaRij kassarij) {
-        this.kassarij = kassarij;
+    private Long id;
+
+    private LocalDate datum;
+
+    private double korting;
+
+    private double totaal;
+
+    private int gepasseerdeartikelen;
+    private double kassatotaal;
+
+    public Factuur() {
+        totaal = 0;
+        korting = 0;
+    }
+
+    public Factuur(Dienblad klant, LocalDate datum) {
+        this();
+        this.datum = datum;
+
+        verwerkBestelling(klant);
     }
 
     /**
-     * Vraag het aantal artikelen en de totaalprijs op.
-     * Tel deze gegevens op bij de controletotalen die voor
-     * de kassa worden bijgehouden. De implementatie wordt
-     * later vervangen door een echte betaling door de persoon.
+     * Verwerk artikelen en pas kortingen toe.
      *
-     * @param klant die moet afrekenen
+     * Zet het totaal te betalen bedrag en het
+     * totaal aan ontvangen kortingen.
+     *
+     * @param //klant
+     *
      */
-    public void rekenAf(Dienblad klant) {
+    private void verwerkBestelling(Dienblad klant) {
         Iterator<Artikel> artikelen = klant.getArtikelIterator();
         double modifier = 1;
         double totaal = 0;
@@ -53,37 +68,26 @@ public class Kassa {
             System.out.println("De Betaling is mislukt " + k.getVoornaam() + " heeft niet genoeg geld!");
             e.printStackTrace();
         }
-        Factuur factuur = new Factuur();
     }
 
-
-    /**
-     * Geeft het aantal artikelen dat de kassa heeft gepasseerd,
-     * vanaf het moment dat de methode resetWaarden is aangeroepen.
-     *
-     * @return aantal artikelen
+    /*
+     * @return het totaalbedrag
      */
-    public int aantalArtikelen() {
-        return gepasseerdeartikelen;
+    public double getTotaal() {
+        return totaal;
     }
 
     /**
-     * Geeft het totaalbedrag van alle artikelen die de kass
-     * zijn gepasseerd, vanaf het moment dat de methode
-     * resetKassa is aangeroepen.
-     *
-     * @return hoeveelheid geld in de kassa
+     * @return de toegepaste korting
      */
-    public double hoeveelheidGeldInKassa() {
-        return kassatotaal;
+    public double getKorting() {
+        return korting;
     }
 
     /**
-     * reset de waarden van het aantal gepasseerde artikelen en
-     * de totale hoeveelheid geld in de kassa.
+     * @return een printbaar bonnetje
      */
-    public void resetKassa() {
-        gepasseerdeartikelen = 0;
-        kassatotaal = 0;
+    public String toString() {
+        return "Totaal: " + totaal;
     }
 }
