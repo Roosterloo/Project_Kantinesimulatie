@@ -44,6 +44,7 @@ public class Administratie {
      */
 
     public static double[] berekenDagOmzet(double[] omzet) {
+        String[] dagen = {"Maandag", "Dinsdag", "Woemsdag", "Donderdag","Vrijdag","Zaterdag","Zondag"};
         double[] temp = new double[DAYS_IN_WEEK];
         for(int i = 0; i < DAYS_IN_WEEK; i++) {
             int j = 0;
@@ -53,7 +54,7 @@ public class Administratie {
             }
         }
         for(int i = 0; i < temp.length; i++){
-            System.out.println("Dag " + (i + 1) + "heeft als omzet: " + temp[i]);
+            System.out.println(dagen[i] + " heeft als omzet: " + temp[i]);
         }
         return temp;
     }

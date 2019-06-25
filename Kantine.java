@@ -44,6 +44,8 @@ public class Kantine {
         return kassa.hoeveelheidGeldInKassa();
     }
 
+    public int hoeveelheidArtikelen(){ return kassa.aantalArtikelen();}
+
     public void resetKassa(){
         kassa.resetKassa();
     }

@@ -48,10 +48,9 @@ public class Kassa {
         }
         try {
             b.betaal(totaal);
-            this.kassatotaal = kassatotaal + totaal;
+            this.kassatotaal += totaal;
         }catch(TeWeinigGeldException e){
             System.out.println("De Betaling is mislukt " + k.getVoornaam() + " heeft niet genoeg geld!");
-            e.printStackTrace();
         }
     }
 

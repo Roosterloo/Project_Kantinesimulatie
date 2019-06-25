@@ -44,6 +44,7 @@ public class KantineSimulatie_2 {
         random = new Random();
         random2 = new Random();
         random3 = new Random();
+
         int[] hoeveelheden = getRandomArray(
             AANTAL_ARTIKELEN,
             MIN_ARTIKELEN_PER_SOORT,
@@ -109,6 +110,9 @@ public class KantineSimulatie_2 {
      * @param //dagen
      */
     public void simuleer(int dagen) {
+        // totalen
+        double[] dagomzet = new double[100*dagen];
+        int[] dagaantallen = new int[100*dagen];
         // for lus voor dagen
         for(int i = 0; i < dagen; i++) {
 
@@ -204,9 +208,19 @@ public class KantineSimulatie_2 {
             // zijn gekomen
             kantine.hoeveelheidGeldInKassa();
 
+            // Voegt de dagelijkse omzet en aantal artikelen toe aan een array
+            dagomzet[i] = kantine.hoeveelheidGeldInKassa();
+            dagaantallen[i] = kantine.hoeveelheidArtikelen();
+
             // reset de kassa voor de volgende dag
             kantine.resetKassa();
         }
+        // Roept de administratieklasse aan om de gemiddelde omzet per aankoop te berekenen,
+        // het gemiddelde aantal producten per aankoop te berekenen
+        // en de omzet op elke weekdag te berekenen
+        Administratie.berekenGemiddeldAantal(dagaantallen);
+        Administratie.berekenGemiddeldeOmzet((dagomzet));
+        Administratie.berekenDagOmzet(dagomzet);
     }
 
     private void toString(Persoon p) {
