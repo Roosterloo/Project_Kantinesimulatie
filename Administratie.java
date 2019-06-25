@@ -17,7 +17,7 @@ public class Administratie {
         for(int waarde : aantal){
             totaal = totaal + waarde;
         }
-        System.out.println("Het gemiddelde aantal is: " + totaal / aantal.length);
+        System.out.println("Het gemiddelde aantal producten per dag is: " + totaal / aantal.length);
         return totaal / aantal.length;
     }
 
@@ -32,7 +32,7 @@ public class Administratie {
         for(double waarde : omzet){
             totaal = totaal + waarde;
         }
-        System.out.println("De gemiddelde omzet is: " + totaal / omzet.length);
+        System.out.println("De gemiddelde dagomzet is: " + totaal / omzet.length);
         return totaal / omzet.length;
     }
 

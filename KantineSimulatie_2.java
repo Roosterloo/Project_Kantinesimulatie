@@ -111,8 +111,8 @@ public class KantineSimulatie_2 {
      */
     public void simuleer(int dagen) {
         // totalen
-        double[] dagomzet = new double[100*dagen];
-        int[] dagaantallen = new int[100*dagen];
+        double[] dagomzet = new double[1*dagen];
+        int[] dagaantallen = new int[1*dagen];
         // for lus voor dagen
         for(int i = 0; i < dagen; i++) {
 
@@ -215,8 +215,8 @@ public class KantineSimulatie_2 {
             // reset de kassa voor de volgende dag
             kantine.resetKassa();
         }
-        // Roept de administratieklasse aan om de gemiddelde omzet per aankoop te berekenen,
-        // het gemiddelde aantal producten per aankoop te berekenen
+        // Roept de administratieklasse aan om de gemiddelde dagomzet te berekenen,
+        // het gemiddelde aantal producten per dag te berekenen
         // en de omzet op elke weekdag te berekenen
         Administratie.berekenGemiddeldAantal(dagaantallen);
         Administratie.berekenGemiddeldeOmzet((dagomzet));
