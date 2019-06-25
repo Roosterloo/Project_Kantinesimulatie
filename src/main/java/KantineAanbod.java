@@ -8,9 +8,6 @@ public class KantineAanbod {
 
     //random voor artikel die korting krijgt
     private Random random;
-
-    //het artikel dat korting heeft
-    private Artikel kortingsartikel;
     
     /**
      * Constructor. Het eerste argument is een lijst met artikelnamen,
@@ -31,7 +28,6 @@ public class KantineAanbod {
                 if(i == r) {
                     Artikel kort = new Artikel(artikelnaam[i], prijs[i], 0.2);
                     artikelen.add(kort);
-                    kortingsartikel = kort;
 
                 } else {
                     artikelen.add(new Artikel(artikelnaam[i], prijs[i]));
@@ -96,9 +92,5 @@ public class KantineAanbod {
 
     void vulVoorraadAaan(String productnaam){
         vulVoorraadAan(productnaam);
-    }
-
-    public Artikel geefKortingsArtikel(){
-        return kortingsartikel;
     }
 }

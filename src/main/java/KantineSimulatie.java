@@ -56,13 +56,7 @@ public class KantineSimulatie {
         kantineaanbod = new KantineAanbod(
             artikelnamen, artikelprijzen, hoeveelheden);
         kantine.setKantineAanbod(kantineaanbod);
-    }
-
-        public void runVoorbeeld() {
         manager = ENTITY_MANAGER_FACTORY.createEntityManager();
-        // transactions omitted
-        manager.close();
-        ENTITY_MANAGER_FACTORY.close();
     }
 
     /**
@@ -138,9 +132,12 @@ public class KantineSimulatie {
                 Dienblad dienblad = new Dienblad();
                 int aantalartikelen = AANTAL_ARTIKELEN;
 
+                //genereert de random locatie voor een artikel om korting the krijgen
+                int randomartikel = getRandomValue(0, AANTAL_ARTIKELEN - 1);
+
                 // Genereert een Persoon en geeft een betaalwijze
                 int randomint = getRandomValue(0,100);
-                int randombetaal = getRandomValue(0,2);
+                int randombetaal = getRandomValue(0,1);
                 int sal = getRandomValue(0,2500);
                 if (randomint < 89) {
                     Student student = new Student(0, "", "", null, 'M', 0, "");
@@ -197,15 +194,10 @@ public class KantineSimulatie {
                 // de indexen hierboven
                 String[] artikelen = geefArtikelNamen(tepakken);
 
-
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
                 kantine.loopPakSluitAan(dienblad, artikelen);
             }
-
-            //geeft de korting door aan de factuur, hierna regelt het de totaalprijs van de korting
-            factuur.setKorting(kantine.getKantineAanbod().geefKortingsArtikel());
-            factuur.setDagdealArtikelPrijs(kantine.getKantineAanbod().geefKortingsArtikel());
 
             //print hoeveelheid van elk type klant
             System.out.println(aantal_studenten);
@@ -222,6 +214,8 @@ public class KantineSimulatie {
             // reset de kassa voor de volgende dag
             kantine.resetKassa();
         }
+        manager.close();
+        ENTITY_MANAGER_FACTORY.close();
     }
 
     private void toString(Persoon p) {
@@ -232,6 +226,5 @@ public class KantineSimulatie {
     public static void main(String[] args) {
         KantineSimulatie kantinesim = new KantineSimulatie();
         kantinesim.simuleer(Administratie.DAYS_IN_WEEK);
-        kantinesim.runVoorbeeld();
     }
 }

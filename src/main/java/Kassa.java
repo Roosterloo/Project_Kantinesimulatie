@@ -1,6 +1,5 @@
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
-import java.util.Iterator;
+import javax.persistence.EntityTransaction;
 import java.time.LocalDate;
 
 public class Kassa {
@@ -37,10 +36,9 @@ public class Kassa {
         Betaalwijze b = k.getBetaalwijze();
         try {
             b.betaal(totaal);
-            this.kassatotaal = kassatotaal + totaal;
+            this.kassatotaal += totaal;
             System.out.println(factuur.toString());
-            factuur.maakIDHoger();
-            manager.persist(factuur);
+            create(factuur);
         }catch(TeWeinigGeldException e){
             System.out.println("De Betaling is mislukt " + k.getVoornaam() + " heeft niet genoeg geld!");
             e.printStackTrace();
@@ -79,5 +77,27 @@ public class Kassa {
     public void resetKassa() {
         gepasseerdeartikelen = 0;
         kassatotaal = 0;
+    }
+
+    /**
+     * Create a new Student.
+     *
+     * @param /factuur
+     */
+    public void create(Factuur factuur) {
+        EntityTransaction transaction = null;
+        try {
+            // Get a transaction, sla de factuur gegevens op en commit de transactie
+            transaction = manager.getTransaction();
+            transaction.begin();
+            manager.persist(factuur);
+            transaction.commit();
+        } catch (Exception ex) {
+            // If there are any exceptions, roll back the changes
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            ex.printStackTrace();
+        }
     }
 }
