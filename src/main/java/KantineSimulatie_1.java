@@ -1,4 +1,4 @@
-import java.util.*;
+/*import java.util.*;
 
 public class KantineSimulatie_1 {
 
@@ -8,7 +8,8 @@ public class KantineSimulatie_1 {
 
     /**
      * Constructor
-     */
+     *
+
     public KantineSimulatie_1() {
         kantine = new Kantine();
     }
@@ -18,7 +19,9 @@ public class KantineSimulatie_1 {
      * verloop van de kantine
      *
      * @param dagen
-     */
+     *
+
+
     public void simuleer(int dagen) {
         // herhaal voor elke dag
 
@@ -78,7 +81,7 @@ public class KantineSimulatie_1 {
 
     /**
      * Start een simulatie
-     */
+     *
     public static void main(String[] args) {
         KantineSimulatie_1 kantinesim = new KantineSimulatie_1();
         int dagen = 0;
@@ -91,3 +94,5 @@ public class KantineSimulatie_1 {
         kantinesim.simuleer(dagen);
     }
 }
+
+ */

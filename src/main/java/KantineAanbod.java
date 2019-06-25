@@ -5,6 +5,12 @@ public class KantineAanbod {
     private HashMap<String, ArrayList<Artikel>> aanbod;
     private HashMap<String, Integer> startVoorraad;
     private HashMap<String, Double> prijzen;
+
+    //random voor artikel die korting krijgt
+    private Random random;
+
+    //het artikel dat korting heeft
+    private Artikel kortingsartikel;
     
     /**
      * Constructor. Het eerste argument is een lijst met artikelnamen,
@@ -13,15 +19,23 @@ public class KantineAanbod {
      * moeten wel gelijk zijn!
      */
     public KantineAanbod(String[] artikelnaam, double[] prijs, int[] hoeveelheid) {
-        aanbod=new HashMap<String, ArrayList<Artikel>>();
-        startVoorraad=new HashMap<String, Integer>();
-        prijzen=new HashMap<String,Double>();
-        for(int i=0;i<artikelnaam.length;i++) 
+        aanbod= new HashMap<String, ArrayList<Artikel>>();
+        startVoorraad= new HashMap<String, Integer>();
+        prijzen= new HashMap<String,Double>();
+        random = new Random();
+        int r = random.nextInt(hoeveelheid.length);
+        for(int i=0; i < artikelnaam.length; i++)
         {
             ArrayList<Artikel> artikelen=new ArrayList<Artikel>();
-            for(int j=0;j<hoeveelheid[i];j++) 
-            {
-                artikelen.add(new Artikel(artikelnaam[i], prijs[i]));
+            for(int j=0; j < hoeveelheid[i]; j++) {
+                if(i == r) {
+                    Artikel kort = new Artikel(artikelnaam[i], prijs[i], 0.2);
+                    artikelen.add(kort);
+                    kortingsartikel = kort;
+
+                } else {
+                    artikelen.add(new Artikel(artikelnaam[i], prijs[i]));
+                }
             }
             startVoorraad.put(artikelnaam[i], hoeveelheid[i]);
             prijzen.put(artikelnaam[i], prijs[i]);
@@ -82,5 +96,9 @@ public class KantineAanbod {
 
     void vulVoorraadAaan(String productnaam){
         vulVoorraadAan(productnaam);
+    }
+
+    public Artikel geefKortingsArtikel(){
+        return kortingsartikel;
     }
 }

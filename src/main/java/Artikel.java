@@ -2,10 +2,22 @@ public class Artikel{
 
     private String naam;
     private double prijs;
+    private double korting;
+    private double modifier;
 
     public Artikel (String naam, double prijs){
         this.naam = naam;
         this.prijs = prijs;
+        this.korting = 0;
+        modifier = 1;
+    }
+
+    public Artikel(String naam, double prijs, double korting){
+        this.naam = naam;
+        this.prijs = prijs;
+        this.korting = korting;
+        modifier = 1;
+        berekenMetKorting();
     }
 
     public Artikel(){
@@ -30,5 +42,17 @@ public class Artikel{
     public void tostring(){
         System.out.println("Naam: " + naam);
         System.out.println("Prijs:" + prijs);
+    }
+
+    public double getKorting() {
+        return korting;
+    }
+
+    public void setKorting(double korting) {
+        this.korting = korting;
+    }
+
+    public void berekenMetKorting(){
+        this.prijs = this.prijs * (modifier - korting);
     }
 }

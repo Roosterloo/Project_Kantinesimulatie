@@ -1,10 +1,9 @@
-import java.time.DayOfWeek;
 import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class KantineSimulatie_2 {
+public class KantineSimulatie {
 
     // kantine
     private Kantine kantine;
@@ -14,8 +13,6 @@ public class KantineSimulatie_2 {
 
     // random generator
     private Random random;
-    private Random random2;
-    private Random random3;
 
     // aantal artikelen
     private static final int AANTAL_ARTIKELEN = 4;
@@ -42,22 +39,22 @@ public class KantineSimulatie_2 {
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("KantineSim");
     private EntityManager manager;
 
+    //aanmaak van een factuur
+    private Factuur factuur;
+
     /**
      * Constructor
      *
      */
-    public KantineSimulatie_2() {
-        kantine = new Kantine();
+    public KantineSimulatie() {
+        kantine = new Kantine(manager);
         random = new Random();
-        random2 = new Random();
-        random3 = new Random();
         int[] hoeveelheden = getRandomArray(
             AANTAL_ARTIKELEN,
             MIN_ARTIKELEN_PER_SOORT,
             MAX_ARTIKELEN_PER_SOORT);
         kantineaanbod = new KantineAanbod(
             artikelnamen, artikelprijzen, hoeveelheden);
-
         kantine.setKantineAanbod(kantineaanbod);
     }
 
@@ -142,9 +139,9 @@ public class KantineSimulatie_2 {
                 int aantalartikelen = AANTAL_ARTIKELEN;
 
                 // Genereert een Persoon en geeft een betaalwijze
-                int randomint = random.nextInt(100);
-                int randombetaal = random2.nextInt(2);
-                int sal = random3.nextInt(2500);
+                int randomint = getRandomValue(0,100);
+                int randombetaal = getRandomValue(0,2);
+                int sal = getRandomValue(0,2500);
                 if (randomint < 89) {
                     Student student = new Student(0, "", "", null, 'M', 0, "");
                     dienblad.setKlant(student);
@@ -206,6 +203,10 @@ public class KantineSimulatie_2 {
                 kantine.loopPakSluitAan(dienblad, artikelen);
             }
 
+            //geeft de korting door aan de factuur, hierna regelt het de totaalprijs van de korting
+            factuur.setKorting(kantine.getKantineAanbod().geefKortingsArtikel());
+            factuur.setDagdealArtikelPrijs(kantine.getKantineAanbod().geefKortingsArtikel());
+
             //print hoeveelheid van elk type klant
             System.out.println(aantal_studenten);
             System.out.println(aantal_docenten);
@@ -229,7 +230,7 @@ public class KantineSimulatie_2 {
     }
 
     public static void main(String[] args) {
-        KantineSimulatie_2 kantinesim = new KantineSimulatie_2();
+        KantineSimulatie kantinesim = new KantineSimulatie();
         kantinesim.simuleer(Administratie.DAYS_IN_WEEK);
         kantinesim.runVoorbeeld();
     }
