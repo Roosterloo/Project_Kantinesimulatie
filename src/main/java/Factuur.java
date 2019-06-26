@@ -107,7 +107,7 @@ public class Factuur implements Serializable {
         String bon = "Bon, ID: " + id + "\n";
         String naamvanklant = "Naam van de klant: " + klantnaam + "\n";
         String prijs = "Prijs: " + totaal + "\n";
-        String kortingstring = "Korting: " + korting + "%" + "\n";
+        String kortingstring = "Korting: " + (korting * totaal) + "\n";
         String date = "Datum: " + datum + "\n";
         String Factuurregel = "Factuurregel " + regels;
 

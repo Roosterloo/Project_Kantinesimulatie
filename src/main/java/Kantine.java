@@ -5,15 +5,13 @@ public class Kantine {
     private Kassa kassa;
     private KassaRij kassarij;
     private KantineAanbod kantineAanbod;
-    private EntityManager manager;
 
     /**
      * Constructor
      */
     public Kantine(EntityManager entityManager) {
-        this.manager = entityManager;
         this.kassarij = new KassaRij();
-        this.kassa = new Kassa(kassarij, manager);
+        this.kassa = new Kassa(kassarij, entityManager);
     }
 
     /**
