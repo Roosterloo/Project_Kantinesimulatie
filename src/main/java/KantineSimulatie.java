@@ -55,6 +55,7 @@ public class KantineSimulatie {
             artikelnamen, artikelprijzen, hoeveelheden);
         kantine.setKantineAanbod(kantineaanbod);
         manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        manager.getTransaction().begin();
     }
 
     /**
@@ -112,6 +113,10 @@ public class KantineSimulatie {
      * @param //dagen
      */
     public void simuleer(int dagen) {
+        // totalen
+        double[] dagomzet = new double[dagen];
+        int[] dagaantallen = new int[dagen];
+
         // for lus voor dagen
         for(int i = 0; i < dagen; i++) {
 
@@ -210,11 +215,23 @@ public class KantineSimulatie {
 
             //uitvoerenQuery();
 
+            //kijkt hoeveel geld er in de kassa zit
             kantine.hoeveelheidGeldInKassa();
+
+            // Voegt de dagelijkse omzet en aantal artikelen toe aan een array
+            dagomzet[i] = kantine.hoeveelheidGeldInKassa();
+            dagaantallen[i] = kantine.hoeveelheidArtikelen();
 
             // reset de kassa voor de volgende dag
             kantine.resetKassa();
         }
+        // Roept de administratieklasse aan om de gemiddelde dagomzet te berekenen,
+        // het gemiddelde aantal producten per dag te berekenen
+        // en de omzet op elke weekdag te berekenen
+        Administratie.berekenGemiddeldAantal(dagaantallen);
+        Administratie.berekenGemiddeldeOmzet((dagomzet));
+        Administratie.berekenDagOmzet(dagomzet);
+
         manager.close();
         ENTITY_MANAGER_FACTORY.close();
     }
