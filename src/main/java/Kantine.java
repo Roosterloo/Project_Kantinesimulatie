@@ -11,7 +11,7 @@ public class Kantine {
      * Constructor
      */
     public Kantine(EntityManager entityManager) {
-        manager = entityManager;
+        this.manager = entityManager;
         this.kassarij = new KassaRij();
         this.kassa = new Kassa(kassarij, manager);
     }
@@ -38,26 +38,48 @@ public class Kantine {
         }
     }
 
+    /**
+     * Deze methode regelt de informatie van de kassa en hierna reset het de kassa
+     */
     public void informatie_kassa(){
         this.kassa.hoeveelheidGeldInKassa();
         this.kassa.aantalArtikelen();
         this.kassa.resetKassa();
     }
 
+    /**
+     * Deze methode geeft de hoeveelheid geld in de kassa terug
+     * @return De hoeveelheid geld in de kassa
+     */
     public double hoeveelheidGeldInKassa(){
         return kassa.hoeveelheidGeldInKassa();
     }
 
+    /**
+     * Deze methode geeft de hoeveelheid artikelen die de kassa heeft gescand terug
+     * @return aantalArtikelen de hoeveelheid artikelen die gescand zijn
+     */
     public int hoeveelheidArtikelen(){ return kassa.aantalArtikelen();}
 
+    /**
+     * Deze methode reset de kassa
+     */
     public void resetKassa(){
         kassa.resetKassa();
     }
 
+    /**
+     * Deze methode set de kantineaanbod voor de kantine
+     * @param /kantineaanbod de kantineaanbod die klaargezet is
+     */
     public void setKantineAanbod(KantineAanbod kantineaanbod){
         this.kantineAanbod = kantineaanbod;
     }
 
+    /**
+     * Deze methode geeft het kantineaanbod terug
+     * @return Kantineaanbod het kantineaanbod
+     */
     public KantineAanbod getKantineAanbod() {
         return kantineAanbod;
     }

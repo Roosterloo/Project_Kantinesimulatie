@@ -40,9 +40,6 @@ public class KantineSimulatie {
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("KantineSim");
     private EntityManager manager;
 
-    //aanmaak van een factuur
-    private Factuur factuur;
-
     /**
      * Constructor
      *

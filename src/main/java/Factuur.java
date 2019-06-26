@@ -59,7 +59,6 @@ public class Factuur implements Serializable {
             Factuur factuur = new Factuur(klant,datum);
             FactuurRegel factuurRegel = new FactuurRegel(factuur,artikel);
             regels.add(factuurRegel);
-            ;
         }
         Persoon k = klant.getKlant();
         this.klantnaam = k.getVoornaam() + " " + k.getAchternaam();

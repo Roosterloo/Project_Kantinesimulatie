@@ -10,16 +10,17 @@ public class Kassa {
     private int gepasseerdeartikelen;
     private EntityManager manager;
     private LocalDate datum;
+    private Factuur fac;
 
     /**
      * Constructor
      */
     public Kassa(KassaRij kassarij, EntityManager entityManager) {
-        totaal = 0;
-        korting = 0;
+        this.totaal = 0;
+        this.korting = 0;
         this.kassarij = kassarij;
-        manager = entityManager;
-        datum = LocalDate.of(2019, 5, 16);
+        this.manager = entityManager;
+        this.datum = LocalDate.of(2019, 6, 26);
     }
 
     /**
@@ -31,21 +32,21 @@ public class Kassa {
      * @param //klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        Factuur factuur = new Factuur(klant, datum);
+        fac = new Factuur(klant, datum);
         Persoon k = klant.getKlant();
         Betaalwijze b = k.getBetaalwijze();
         try {
             b.betaal(totaal);
             this.kassatotaal += totaal;
-            System.out.println(factuur.toString());
-            create(factuur);
+            System.out.println(fac.toString());
+            create(fac);
         }catch(TeWeinigGeldException e){
             System.out.println("De Betaling is mislukt " + k.getVoornaam() + " heeft niet genoeg geld!");
             e.printStackTrace();
         }
-        this.korting = factuur.getKorting();
-        this.kassatotaal = kassatotaal + factuur.getTotaal();
-        this.gepasseerdeartikelen = factuur.geefGepasseerdeArtikelen();
+        this.korting = fac.getKorting();
+        this.kassatotaal = kassatotaal + fac.getTotaal();
+        this.gepasseerdeartikelen = fac.geefGepasseerdeArtikelen();
     }
 
 
@@ -80,9 +81,9 @@ public class Kassa {
     }
 
     /**
-     * Create a new Student.
+     * Maakt een factuur aan in de database en vult deze in
      *
-     * @param /factuur
+     * @param /factuur de factuur voor de database
      */
     public void create(Factuur factuur) {
         EntityTransaction transaction = null;
