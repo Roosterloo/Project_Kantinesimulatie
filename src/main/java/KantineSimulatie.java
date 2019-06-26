@@ -2,6 +2,7 @@ import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class KantineSimulatie {
 
@@ -209,6 +210,9 @@ public class KantineSimulatie {
             kantine.verwerkRijVoorKassa();
             // druk de dagtotalen af en hoeveel personen binnen
             // zijn gekomen
+
+            //uitvoerenQuery();
+
             kantine.hoeveelheidGeldInKassa();
 
             // reset de kassa voor de volgende dag
@@ -217,6 +221,21 @@ public class KantineSimulatie {
         manager.close();
         ENTITY_MANAGER_FACTORY.close();
     }
+
+    /**private void uitvoerenQuery() {
+        Query query = manager.createQuery(
+                "SELECT SUM(prijs), SUM(korting), AVG(omzet),AVG(korting) From Factuur ");
+        List<Object[]> result = query.getResultList();
+        result.forEach(r -> System.out.println((Arrays.toString((r)))));
+        Query query1 = manager.createQuery(
+                "SELECT id, naam, prijs, korting, datum From Factuur ORDER BY f.prijs DESC LIMIT 3");
+        List<Object[]> resultList = query1.getResultList();
+        resultList.forEach(r -> System.out.println((Arrays.toString((r)))));
+
+    }*/
+
+
+
 
     private void toString(Persoon p) {
         System.out.println("De naam van deze klant klant is: " + p.getVoornaam() + " " + p.getAchternaam());

@@ -1,10 +1,12 @@
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Factuur implements Serializable {
 
+    @Id
     @Column(name = "ID")
     private Long id;
 
@@ -22,6 +24,10 @@ public class Factuur implements Serializable {
 
     @Column(name = "Naam van de klant")
     private String klantnaam;
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "factuur")
+    private ArrayList<FactuurRegel> regels = new ArrayList<>();
 
     public Factuur() {
         totaal = 0;
@@ -50,6 +56,10 @@ public class Factuur implements Serializable {
             Artikel artikel = artikelen.next();
             gepasseerdeartikelen++;
             totaal = totaal + artikel.get_prijs();
+            Factuur factuur = new Factuur(klant,datum);
+            FactuurRegel factuurRegel = new FactuurRegel(factuur,artikel);
+            regels.add(factuurRegel);
+            ;
         }
         Persoon k = klant.getKlant();
         this.klantnaam = k.getVoornaam() + " " + k.getAchternaam();
@@ -100,7 +110,9 @@ public class Factuur implements Serializable {
         String prijs = "Prijs: " + totaal + "\n";
         String kortingstring = "Korting: " + korting + "%" + "\n";
         String date = "Datum: " + datum + "\n";
-        return bon + naamvanklant + prijs + kortingstring + date;
+        String Factuurregel = "Factuurregel " + regels;
+
+        return bon + naamvanklant + prijs + kortingstring + date + Factuurregel;
     }
 
     public int geefGepasseerdeArtikelen(){
