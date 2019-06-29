@@ -9,7 +9,6 @@ public class Artikel{
         this.naam = naam;
         this.prijs = prijs;
         this.korting = 0;
-        modifier = 1;
     }
 
     public Artikel(String naam, double prijs, double korting){

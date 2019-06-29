@@ -1,33 +1,38 @@
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Iterator;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
+@Entity
+@Table(name = "Factuur")
 public class Factuur implements Serializable {
 
     @Id
-    @Column(name = "ID")
+    @GeneratedValue
+    @Column(name = "ID", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "Datum")
-    private LocalDate datum;
+    @Column(name = "Naam_van_de_klant")
+    private String klantnaam;
 
     @Column(name = "Totaalbedrag")
     private double totaal;
 
-    @Column(name = "Gepasseerde Artikelen")
-    private int gepasseerdeartikelen;
-
-    @Column(name = "De totale korting")
+    @Column(name = "Totale_korting")
     private double korting;
 
-    @Column(name = "Naam van de klant")
-    private String klantnaam;
+    @Column(name = "Gepasseerde_Artikelen")
+    private int gepasseerdeartikelen;
 
+    @Column(name = "Datum")
+    private LocalDate datum;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "factuur")
-    private ArrayList<FactuurRegel> regels = new ArrayList<>();
+    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "factuur")
+    //private ArrayList<FactuurRegel> regels = new ArrayList<>();
 
     public Factuur() {
         totaal = 0;
@@ -50,35 +55,35 @@ public class Factuur implements Serializable {
      */
     private void verwerkBestelling(Dienblad klant) {
         Iterator<Artikel> artikelen = klant.getArtikelIterator();
-        double modifier = 1;
-        totaal = 0;
         while (artikelen.hasNext()) {
             Artikel artikel = artikelen.next();
             gepasseerdeartikelen++;
             totaal = totaal + artikel.get_prijs();
-            Factuur factuur = new Factuur(klant,datum);
-            FactuurRegel factuurRegel = new FactuurRegel(factuur,artikel);
-            regels.add(factuurRegel);
+            //Factuur factuur = new Factuur(klant,datum);
+            //FactuurRegel factuurRegel = new FactuurRegel(factuur,artikel);
+            //regels.add(factuurRegel);
         }
         Persoon k = klant.getKlant();
         this.klantnaam = k.getVoornaam() + " " + k.getAchternaam();
         if (k instanceof KortingskaartHouder) {
-            korting = ((KortingskaartHouder) k).geefKortingsPercentage();
-            setKorting(korting);
-            modifier = modifier - korting;
+            double kortingskaartkorting = ((KortingskaartHouder) k).geefKortingsPercentage();
+            double modifier = 1;
+            modifier = modifier - kortingskaartkorting;
             if (((KortingskaartHouder) k).heeftMaximum()) {
                 double max = ((KortingskaartHouder) k).geefMaximum();
-                if ((totaal * korting) > max) {
+                if (totaal * kortingskaartkorting > max) {
+                    setKorting(max);
                     totaal = totaal - max;
-                    totaal = Math.round(totaal);
                 } else {
+                    setKorting(totaal * kortingskaartkorting);
                     totaal = totaal * modifier;
-                    totaal = Math.round(totaal);
                 }
             } else {
+                setKorting(totaal * kortingskaartkorting);
                 totaal = totaal * modifier;
-                totaal = Math.round(totaal);
             }
+            //probeert zoveel mogelijk getallen van bijv. 10.0 naar 10.00 te maken
+            totaal = Math.round(totaal * 100.0) / 100.0;
         }
     }
 
@@ -106,12 +111,12 @@ public class Factuur implements Serializable {
     public String toString() {
         String bon = "Bon, ID: " + id + "\n";
         String naamvanklant = "Naam van de klant: " + klantnaam + "\n";
-        String prijs = "Prijs: " + totaal + "\n";
-        String kortingstring = "Korting: " + (korting * totaal) + "\n";
+        String prijs = "Prijs: €" + totaal + "\n";
+        String kortingstring = "Korting: €" + Math.round(korting) + "\n";
         String date = "Datum: " + datum + "\n";
-        String Factuurregel = "Factuurregel " + regels;
+        //String Factuurregel = "Factuurregel " + regels;
 
-        return bon + naamvanklant + prijs + kortingstring + date + Factuurregel;
+        return bon + naamvanklant + prijs + kortingstring + date;
     }
 
     public int geefGepasseerdeArtikelen(){

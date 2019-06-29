@@ -37,6 +37,7 @@ public class KantineSimulatie {
     private static final int MIN_ARTIKELEN_PER_PERSOON = 1;
     private static final int MAX_ARTIKELEN_PER_PERSOON = 4;
 
+    //Maakt een EntityManager aan
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("KantineSim");
     private EntityManager manager;
 
@@ -45,6 +46,7 @@ public class KantineSimulatie {
      *
      */
     public KantineSimulatie() {
+        manager = ENTITY_MANAGER_FACTORY.createEntityManager();
         kantine = new Kantine(manager);
         random = new Random();
         int[] hoeveelheden = getRandomArray(
@@ -54,8 +56,6 @@ public class KantineSimulatie {
         kantineaanbod = new KantineAanbod(
             artikelnamen, artikelprijzen, hoeveelheden);
         kantine.setKantineAanbod(kantineaanbod);
-        manager = ENTITY_MANAGER_FACTORY.createEntityManager();
-        manager.getTransaction().begin();
     }
 
     /**
@@ -207,7 +207,6 @@ public class KantineSimulatie {
             System.out.println(aantal_docenten);
             System.out.println(aantal_medewerkers);
 
-
             // verwerk rij voor de kassa
             kantine.verwerkRijVoorKassa();
             // druk de dagtotalen af en hoeveel personen binnen
@@ -224,6 +223,7 @@ public class KantineSimulatie {
 
             // reset de kassa voor de volgende dag
             kantine.resetKassa();
+
         }
         // Roept de administratieklasse aan om de gemiddelde dagomzet te berekenen,
         // het gemiddelde aantal producten per dag te berekenen
@@ -235,21 +235,6 @@ public class KantineSimulatie {
         manager.close();
         ENTITY_MANAGER_FACTORY.close();
     }
-
-    /**private void uitvoerenQuery() {
-        Query query = manager.createQuery(
-                "SELECT SUM(prijs), SUM(korting), AVG(omzet),AVG(korting) From Factuur ");
-        List<Object[]> result = query.getResultList();
-        result.forEach(r -> System.out.println((Arrays.toString((r)))));
-        Query query1 = manager.createQuery(
-                "SELECT id, naam, prijs, korting, datum From Factuur ORDER BY f.prijs DESC LIMIT 3");
-        List<Object[]> resultList = query1.getResultList();
-        resultList.forEach(r -> System.out.println((Arrays.toString((r)))));
-
-    }*/
-
-
-
 
     private void toString(Persoon p) {
         System.out.println("De naam van deze klant klant is: " + p.getVoornaam() + " " + p.getAchternaam());

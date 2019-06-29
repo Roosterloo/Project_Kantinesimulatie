@@ -28,11 +28,12 @@ public class FactuurRegel implements Serializable {
     /**
      * @return een printbare factuurregel
      */
-    public String toString() {
+    /*public String toString() {
         String factuur = "D" + factuur;
         for(FactuurRegel regel: Factuur.regels());
         String artikel = "" + artikel;
         return factuur;
         return "";
     }
+     */
 }

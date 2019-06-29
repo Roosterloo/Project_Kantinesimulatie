@@ -9,8 +9,8 @@ public class Kassa {
     private double kassatotaal;
     private int gepasseerdeartikelen;
     private EntityManager manager;
+    private EntityTransaction transaction;
     private LocalDate datum;
-    private Factuur fac;
 
     /**
      * Constructor
@@ -20,6 +20,7 @@ public class Kassa {
         this.korting = 0;
         this.kassarij = kassarij;
         this.manager = entityManager;
+        this.transaction = null;
         this.datum = LocalDate.of(2019, 6, 26);
     }
 
@@ -32,15 +33,23 @@ public class Kassa {
      * @param //klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        fac = new Factuur(klant, datum);
+        Factuur fac = new Factuur(klant, datum);
         Persoon k = klant.getKlant();
         Betaalwijze b = k.getBetaalwijze();
         try {
+            // Get a transaction, sla het factuur op en commit de transactie
+            transaction = manager.getTransaction();
+            transaction.begin();
             b.betaal(totaal);
             this.kassatotaal += totaal;
+            manager.persist(fac);
+            transaction.commit();
             System.out.println(fac.toString());
-            create(fac);
-        }catch(TeWeinigGeldException e){
+        } catch (TeWeinigGeldException e) {
+            //Als er te weninig geld is, rollback
+            if (transaction != null) {
+                transaction.rollback();
+            }
             System.out.println("De Betaling is mislukt " + k.getVoornaam() + " heeft niet genoeg geld!");
             e.printStackTrace();
         }
@@ -78,27 +87,5 @@ public class Kassa {
     public void resetKassa() {
         gepasseerdeartikelen = 0;
         kassatotaal = 0;
-    }
-
-    /**
-     * Maakt een factuur aan in de database en vult deze in
-     *
-     * @param /factuur de factuur voor de database
-     */
-    public void create(Factuur factuur) {
-        EntityTransaction transaction = null;
-        try {
-            // Get a transaction, sla de factuur gegevens op en commit de transactie
-            transaction = manager.getTransaction();
-            transaction.begin();
-            manager.persist(factuur);
-            transaction.commit();
-        } catch (Exception ex) {
-            // If there are any exceptions, roll back the changes
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            ex.printStackTrace();
-        }
     }
 }

@@ -81,4 +81,8 @@ public class Kantine {
     public KantineAanbod getKantineAanbod() {
         return kantineAanbod;
     }
+
+    public Kassa getKassa(){
+        return this.kassa;
+    }
 }

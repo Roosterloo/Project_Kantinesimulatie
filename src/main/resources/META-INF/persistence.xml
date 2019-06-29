@@ -7,7 +7,6 @@
         <properties>
             <!-- The JDBC driver of your database -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-
             <!-- PostgreSQL JDBC driver example -->
             <!--
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

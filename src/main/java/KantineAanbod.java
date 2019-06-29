@@ -5,9 +5,6 @@ public class KantineAanbod {
     private HashMap<String, ArrayList<Artikel>> aanbod;
     private HashMap<String, Integer> startVoorraad;
     private HashMap<String, Double> prijzen;
-
-    //random voor artikel die korting krijgt
-    private Random random;
     
     /**
      * Constructor. Het eerste argument is een lijst met artikelnamen,
@@ -19,8 +16,8 @@ public class KantineAanbod {
         aanbod= new HashMap<String, ArrayList<Artikel>>();
         startVoorraad= new HashMap<String, Integer>();
         prijzen= new HashMap<String,Double>();
-        random = new Random();
-        int r = random.nextInt(hoeveelheid.length);
+        Random random = new Random();
+        int r = random.nextInt(artikelnaam.length);
         for(int i=0; i < artikelnaam.length; i++)
         {
             ArrayList<Artikel> artikelen=new ArrayList<Artikel>();
