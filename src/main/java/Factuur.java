@@ -25,7 +25,7 @@ public class Factuur implements Serializable {
     @Column(name = "Totale_korting")
     private double korting;
 
-    @Column(name = "Gepasseerde_Artikelen")
+    @Column(name = "Hoeveelheid_Gescande_Artikelen")
     private int gepasseerdeartikelen;
 
     @Column(name = "Datum")
@@ -84,6 +84,7 @@ public class Factuur implements Serializable {
             }
         }
         //Getallen van bijv. 10.0 worden nu naar 10.00 gemaakt zodat het net echte bedragen zijn
+        //dit lukt echter niet altijd
         totaal = Math.round(totaal * 100.0) / 100.0;
     }
 
@@ -113,10 +114,11 @@ public class Factuur implements Serializable {
         String naamvanklant = "Naam van de klant: " + klantnaam + "\n";
         String prijs = "Prijs: €" + totaal + "\n";
         String kortingstring = "Korting: €" + Math.round(korting) + "\n";
+        String hoeveelgescand = "Hoeveelheid gescande artikelen: " + gepasseerdeartikelen + "\n";
         String date = "Datum: " + datum + "\n";
         //String Factuurregel = "Factuurregel " + regels;
 
-        return bon + naamvanklant + prijs + kortingstring + date;
+        return bon + naamvanklant + prijs + kortingstring + hoeveelgescand + date;
     }
 
     public int geefGepasseerdeArtikelen(){
