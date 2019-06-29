@@ -82,9 +82,9 @@ public class Factuur implements Serializable {
                 setKorting(totaal * kortingskaartkorting);
                 totaal = totaal * modifier;
             }
-            //probeert zoveel mogelijk getallen van bijv. 10.0 naar 10.00 te maken
-            totaal = Math.round(totaal * 100.0) / 100.0;
         }
+        //Getallen van bijv. 10.0 worden nu naar 10.00 gemaakt zodat het net echte bedragen zijn
+        totaal = Math.round(totaal * 100.0) / 100.0;
     }
 
     /**
