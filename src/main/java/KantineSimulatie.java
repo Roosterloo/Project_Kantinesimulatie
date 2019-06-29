@@ -236,6 +236,18 @@ public class KantineSimulatie {
         ENTITY_MANAGER_FACTORY.close();
     }
 
+    /**private void uitvoerenQuery() {
+     Query query = manager.createQuery(
+     "SELECT SUM(prijs), SUM(korting), AVG(omzet),AVG(korting) From Factuur ");
+     List<Object[]> result = query.getResultList();
+     result.forEach(r -> System.out.println((Arrays.toString((r)))));
+     Query query1 = manager.createQuery(
+     "SELECT id, naam, prijs, korting, datum From Factuur ORDER BY f.prijs DESC LIMIT 3");
+     List<Object[]> resultList = query1.getResultList();
+     resultList.forEach(r -> System.out.println((Arrays.toString((r)))));
+     }
+     */
+
     private void toString(Persoon p) {
         System.out.println("De naam van deze klant klant is: " + p.getVoornaam() + " " + p.getAchternaam());
         System.out.println("Deze klant was een: " + p.getClass().getName());
