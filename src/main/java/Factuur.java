@@ -89,13 +89,6 @@ public class Factuur implements Serializable {
     }
 
     /**
-     * @return id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
      *test
      */
     public void addRegel(FactuurRegel factuurRegel){

@@ -35,8 +35,8 @@ public class FactuurRegel implements Serializable {
         return factuur;
     }
 
-    public Artikel getArtikel() {
-        return null;
+    public String getArtikel() {
+        return artikel;
     }
 
     /**
