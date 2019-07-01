@@ -32,8 +32,7 @@ public class Administratie {
         for(double waarde : omzet){
             totaal = totaal + waarde;
         }
-        //De math function die door honderd gedeelt wordt geeft een bedrag terug dat op 2 getallen na de comma wordt afgerond
-        System.out.println("De gemiddelde dagomzet is: €" + Math.round(totaal / omzet.length * 100.0) / 100.0);
+        System.out.println("De gemiddelde dagomzet is: €" + totaal / omzet.length);
         return totaal / omzet.length;
     }
 
@@ -55,8 +54,7 @@ public class Administratie {
             }
         }
         for(int i = 0; i < temp.length; i++){
-            //De math function die door honderd gedeelt wordt geeft een bedrag terug dat op 2 getallen na de comma wordt afgerond
-            System.out.println(dagen[i] + " heeft als omzet: €" + Math.round(temp[i] * 100.0) / 100.0);
+            System.out.println(dagen[i] + " heeft als omzet: €" + temp[i]);
         }
         return temp;
     }

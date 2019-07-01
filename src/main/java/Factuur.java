@@ -81,9 +81,6 @@ public class Factuur implements Serializable {
                 totaal = totaal * modifier;
             }
         }
-        //Getallen worden afgerond naar 2 decimalen achter de comma
-        //dit lukt echter niet altijd, bijvoorbeeld 10.00 is 10.0
-        totaal = Math.round(totaal * 100.0) / 100.0;
     }
 
     /**
@@ -110,7 +107,9 @@ public class Factuur implements Serializable {
     public String toString() {
         String bon = "Bon, ID: " + id + "\n";
         String naamvanklant = "Naam van de klant: " + klantnaam + "\n";
-        String prijs = "Prijs: €" + totaal + "\n";
+        //Getallen worden afgerond naar 2 decimalen achter de comma voor het bonnetje via de function Math
+        //dit lukt echter niet altijd, bijvoorbeeld 10.00 is nu 10.0
+        String prijs = "Prijs: €" + (Math.round(totaal * 100.0) / 100.0) + "\n";
         String kortingstring = "Korting: €" + (Math.round(korting * 100.0) / 100.0) + "\n";
         String hoeveelgescand = "Hoeveelheid gescande artikelen: " + gepasseerdeartikelen + "\n";
         String date = "Datum: " + datum + "\n";
