@@ -4,38 +4,43 @@ import java.io.Serializable;
 @Entity
 @Table(name = "Factuurregel")
 public class FactuurRegel implements Serializable {
+
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private Long id;
 
-    @Column
-    private String artikel = "";
+    @Transient
+    private Artikel artikel;
+
+    @Column(name = "Artikel_Naam")
+    private String artikelnaam;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "factuur_id", nullable = false)
+    @JoinColumn(name = "Factuur_ID", nullable = false)
     private Factuur factuur;
 
     public FactuurRegel() {
     }
 
-    public FactuurRegel(Factuur factuur, String artikel) {
+    public FactuurRegel(Factuur factuur, Artikel artikel) {
         this.factuur = factuur;
         this.artikel = artikel;
+        this.artikelnaam = artikel.get_naam();
     }
 
     public void setFactuur(Factuur factuur) {
         this.factuur = factuur;
     }
-    public void setArtikel(String artikel){
-        this.artikel += artikel + " ";
+    public void setArtikel(Artikel artikel){
+        this.artikel = artikel;
     }
 
     public Factuur getFactuur(){
         return factuur;
     }
 
-    public String getArtikel() {
+    public Artikel getArtikel() {
         return artikel;
     }
 
@@ -43,8 +48,6 @@ public class FactuurRegel implements Serializable {
      * @return een printbare factuurregel
      */
     public String toString() {
-        String bericht = "Artikelen: " + artikel;
-
-        return bericht;
+        return artikelnaam;
     }
 }

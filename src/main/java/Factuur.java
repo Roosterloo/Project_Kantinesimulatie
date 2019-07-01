@@ -11,7 +11,7 @@ import java.util.List;
 public class Factuur implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "factuur_id", unique = true, nullable = false)
     private Long id;
 
@@ -54,14 +54,12 @@ public class Factuur implements Serializable {
      */
     private void verwerkBestelling(Dienblad klant) {
         Iterator<Artikel> artikelen = klant.getArtikelIterator();
-        FactuurRegel factuurRegel = new FactuurRegel();
-        factuurRegel.setFactuur(this);
         while (artikelen.hasNext()) {
             Artikel artikel = artikelen.next();
             gepasseerdeartikelen++;
             totaal = totaal + artikel.get_prijs();
-            factuurRegel.setArtikel(artikel.get_naam());
-            addRegel(factuurRegel);
+            FactuurRegel factuurRegel = new FactuurRegel(this, artikel);
+            this.regels.add(factuurRegel);
         }
         Persoon k = klant.getKlant();
         this.klantnaam = k.getVoornaam() + " " + k.getAchternaam();
@@ -83,16 +81,9 @@ public class Factuur implements Serializable {
                 totaal = totaal * modifier;
             }
         }
-        //Getallen van bijv. 10.0 worden nu naar 10.00 gemaakt zodat het net echte bedragen zijn
-        //dit lukt echter niet altijd
+        //Getallen worden afgerond naar 2 decimalen achter de comma
+        //dit lukt echter niet altijd, bijvoorbeeld 10.00 is 10.0
         totaal = Math.round(totaal * 100.0) / 100.0;
-    }
-
-    /**
-     *test
-     */
-    public void addRegel(FactuurRegel factuurRegel){
-        this.regels.add(factuurRegel);
     }
 
     /**
@@ -120,23 +111,21 @@ public class Factuur implements Serializable {
         String bon = "Bon, ID: " + id + "\n";
         String naamvanklant = "Naam van de klant: " + klantnaam + "\n";
         String prijs = "Prijs: €" + totaal + "\n";
-        String kortingstring = "Korting: €" + Math.round(korting) + "\n";
+        String kortingstring = "Korting: €" + (Math.round(korting * 100.0) / 100.0) + "\n";
         String hoeveelgescand = "Hoeveelheid gescande artikelen: " + gepasseerdeartikelen + "\n";
         String date = "Datum: " + datum + "\n";
-        String regel = "";
+        StringBuilder sb = new
+                StringBuilder();
+        int i = 1;
         for(FactuurRegel fr : regels){
-            regel = "" + fr ;
+            sb.append("Artikel nummer ").append(i).append(": ").append(fr.toString()).append("\n");
+            i++;
         }
 
-        return bon + naamvanklant + prijs + kortingstring + hoeveelgescand + date + regel;
+        return bon + naamvanklant + sb + prijs + kortingstring + hoeveelgescand + date;
     }
 
     public int geefGepasseerdeArtikelen(){
         return gepasseerdeartikelen;
     }
 }
-
-   /** Factuur factuur = new Factuur(klant,datum);
-    FactuurRegel factuurRegel = new FactuurRegel(factuur,artikel);
-            regels.add(factuurRegel);
-                    }*/
