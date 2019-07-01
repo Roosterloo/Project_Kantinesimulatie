@@ -54,13 +54,13 @@ public class Factuur implements Serializable {
      */
     private void verwerkBestelling(Dienblad klant) {
         Iterator<Artikel> artikelen = klant.getArtikelIterator();
+        FactuurRegel factuurRegel = new FactuurRegel();
+        factuurRegel.setFactuur(this);
         while (artikelen.hasNext()) {
             Artikel artikel = artikelen.next();
             gepasseerdeartikelen++;
             totaal = totaal + artikel.get_prijs();
-            FactuurRegel factuurRegel = new FactuurRegel();
-            factuurRegel.setFactuur());
-            factuurRegel.setArtikel(artikel);
+            factuurRegel.setArtikel(artikel.get_naam());
             addRegel(factuurRegel);
         }
         Persoon k = klant.getKlant();
@@ -132,7 +132,7 @@ public class Factuur implements Serializable {
         String date = "Datum: " + datum + "\n";
         String regel = "Factuurregel: ";
         for(FactuurRegel fr : regels){
-            regel += fr + ", ";
+            regel = "" + fr ;
         }
 
         return bon + naamvanklant + prijs + kortingstring + hoeveelgescand + date + regel;

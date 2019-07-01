@@ -5,11 +5,12 @@ import java.io.Serializable;
 @Table(name = "Factuurregel")
 public class FactuurRegel implements Serializable {
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private Long id;
 
     @Column
-    private Artikel artikel;
+    private String artikel = "";
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "factuur_id", nullable = false)
@@ -19,7 +20,7 @@ public class FactuurRegel implements Serializable {
     }
 
 
-    public FactuurRegel(Factuur factuur, Artikel artikel) {
+    public FactuurRegel(Factuur factuur, String artikel) {
         this.factuur = factuur;
         this.artikel = artikel;
     }
@@ -27,8 +28,8 @@ public class FactuurRegel implements Serializable {
     public void setFactuur(Factuur factuur) {
         this.factuur = factuur;
     }
-    public void setArtikel(Artikel artikel){
-        this.artikel = artikel;
+    public void setArtikel(String artikel){
+        this.artikel += artikel + " ";
     }
 
     public Factuur getFactuur(){
@@ -36,19 +37,16 @@ public class FactuurRegel implements Serializable {
     }
 
     public Artikel getArtikel() {
-        return artikel;
+        return null;
     }
 
     /**
      * @return een printbare factuurregel
      */
     public String toString() {
-        if (factuur.getId(){
+        Long id = factuur.getId();
+        String bericht = "" + artikel;
 
-        }
-        String factuur = "D" + factuur;
-
-        return factuur;
-        return "test ";
+        return bericht;
     }
 }
