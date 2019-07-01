@@ -32,7 +32,7 @@ public class Administratie {
         for(double waarde : omzet){
             totaal = totaal + waarde;
         }
-        System.out.println("De gemiddelde dagomzet is: €" + totaal / omzet.length);
+        System.out.println("De gemiddelde dagomzet is: €" + (totaal / omzet.length));
         return totaal / omzet.length;
     }
 
@@ -44,7 +44,7 @@ public class Administratie {
      */
 
     public static double[] berekenDagOmzet(double[] omzet) {
-        String[] dagen = {"Maandag", "Dinsdag", "Woemsdag", "Donderdag","Vrijdag","Zaterdag","Zondag"};
+        String[] dagen = {"Maandag", "Dinsdag", "Woensdag", "Donderdag","Vrijdag","Zaterdag","Zondag"};
         double[] temp = new double[DAYS_IN_WEEK];
         for(int i = 0; i < DAYS_IN_WEEK; i++) {
             int j = 0;
