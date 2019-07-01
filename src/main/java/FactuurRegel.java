@@ -19,7 +19,6 @@ public class FactuurRegel implements Serializable {
     public FactuurRegel() {
     }
 
-
     public FactuurRegel(Factuur factuur, String artikel) {
         this.factuur = factuur;
         this.artikel = artikel;
@@ -44,8 +43,7 @@ public class FactuurRegel implements Serializable {
      * @return een printbare factuurregel
      */
     public String toString() {
-        Long id = factuur.getId();
-        String bericht = "" + artikel;
+        String bericht = "Artikelen: " + artikel;
 
         return bericht;
     }

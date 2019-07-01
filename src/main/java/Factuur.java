@@ -130,7 +130,7 @@ public class Factuur implements Serializable {
         String kortingstring = "Korting: €" + Math.round(korting) + "\n";
         String hoeveelgescand = "Hoeveelheid gescande artikelen: " + gepasseerdeartikelen + "\n";
         String date = "Datum: " + datum + "\n";
-        String regel = "Factuurregel: ";
+        String regel = "";
         for(FactuurRegel fr : regels){
             regel = "" + fr ;
         }
