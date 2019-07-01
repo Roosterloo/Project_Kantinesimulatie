@@ -231,22 +231,30 @@ public class KantineSimulatie {
         Administratie.berekenGemiddeldAantal(dagaantallen);
         Administratie.berekenGemiddeldeOmzet((dagomzet));
         Administratie.berekenDagOmzet(dagomzet);
-
+        uitvoerenQuery();
         manager.close();
         ENTITY_MANAGER_FACTORY.close();
     }
 
-    /**private void uitvoerenQuery() {
+    private void uitvoerenQuery() {
      Query query = manager.createQuery(
-     "SELECT SUM(prijs), SUM(korting), AVG(omzet),AVG(korting) From Factuur ");
-     List<Object[]> result = query.getResultList();
-     result.forEach(r -> System.out.println((Arrays.toString((r)))));
+             "SELECT SUM(totaal), SUM(korting), AVG(totaal),AVG(korting) From Factuur ");
+     List<Object[]> resultList = query.getResultList();
+     resultList.forEach(r -> System.out.println("Totale omzet en totale korting\n" +(Arrays.toString((r)))));
+
      Query query1 = manager.createQuery(
-     "SELECT id, naam, prijs, korting, datum From Factuur ORDER BY f.prijs DESC LIMIT 3");
-     List<Object[]> resultList = query1.getResultList();
-     resultList.forEach(r -> System.out.println((Arrays.toString((r)))));
+             "SELECT AVG(totaal),AVG(korting) From Factuur");
+     List<Object[]> resultList1 = query1.getResultList();
+     resultList1.forEach(r -> System.out.println("Gemiddelde omzet en gemiddelde korting\n" +(Arrays.toString((r)))));
+
+     Query query2 = manager.createQuery(
+     "SELECT id, klantnaam, totaal, korting, datum From Factuur ORDER BY totaal DESC ");
+     query2.setMaxResults(3);
+     List<Object[]> resultList2 = query2.getResultList();
+     System.out.println("Drie facturen met de hoogste omzet");
+     resultList2.forEach(r -> System.out.println((Arrays.toString((r)))));
      }
-     */
+
 
     private void toString(Persoon p) {
         System.out.println("De naam van deze klant klant is: " + p.getVoornaam() + " " + p.getAchternaam());

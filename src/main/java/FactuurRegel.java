@@ -1,23 +1,22 @@
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "Factuurregel")
 public class FactuurRegel implements Serializable {
     @Id
-    @Column(name = "id'")
+    @Column(name = "id")
     private Long id;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "factuurId")
-    private Factuur factuur;
-
-    @Column(name = "artikel")
+    @Column
     private Artikel artikel;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "factuur_id", nullable = false)
+    private Factuur factuur;
 
     public FactuurRegel() {
     }
-
-
 
 
     public FactuurRegel(Factuur factuur, Artikel artikel) {
@@ -25,15 +24,31 @@ public class FactuurRegel implements Serializable {
         this.artikel = artikel;
     }
 
+    public void setFactuur(Factuur factuur) {
+        this.factuur = factuur;
+    }
+    public void setArtikel(Artikel artikel){
+        this.artikel = artikel;
+    }
+
+    public Factuur getFactuur(){
+        return factuur;
+    }
+
+    public Artikel getArtikel() {
+        return artikel;
+    }
+
     /**
      * @return een printbare factuurregel
      */
-    /*public String toString() {
+    public String toString() {
+        if (factuur.getId(){
+
+        }
         String factuur = "D" + factuur;
-        for(FactuurRegel regel: Factuur.regels());
-        String artikel = "" + artikel;
+
         return factuur;
-        return "";
+        return "test ";
     }
-     */
 }

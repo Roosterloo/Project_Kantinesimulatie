@@ -1,19 +1,18 @@
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import java.util.List;
 
 @Entity
 @Table(name = "Factuur")
+@NamedQuery(name = "Factuur.findAll", query = "SELECT DISTINCT(f) FROM Factuur f")
 public class Factuur implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "factuur_id", unique = true, nullable = false)
     private Long id;
 
     @Column(name = "Naam_van_de_klant")
@@ -31,8 +30,8 @@ public class Factuur implements Serializable {
     @Column(name = "Datum")
     private LocalDate datum;
 
-    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "factuur")
-    //private ArrayList<FactuurRegel> regels = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "factuur", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FactuurRegel> regels = new ArrayList<>();
 
     public Factuur() {
         totaal = 0;
@@ -59,9 +58,10 @@ public class Factuur implements Serializable {
             Artikel artikel = artikelen.next();
             gepasseerdeartikelen++;
             totaal = totaal + artikel.get_prijs();
-            //Factuur factuur = new Factuur(klant,datum);
-            //FactuurRegel factuurRegel = new FactuurRegel(factuur,artikel);
-            //regels.add(factuurRegel);
+            FactuurRegel factuurRegel = new FactuurRegel();
+            factuurRegel.setFactuur());
+            factuurRegel.setArtikel(artikel);
+            addRegel(factuurRegel);
         }
         Persoon k = klant.getKlant();
         this.klantnaam = k.getVoornaam() + " " + k.getAchternaam();
@@ -86,6 +86,20 @@ public class Factuur implements Serializable {
         //Getallen van bijv. 10.0 worden nu naar 10.00 gemaakt zodat het net echte bedragen zijn
         //dit lukt echter niet altijd
         totaal = Math.round(totaal * 100.0) / 100.0;
+    }
+
+    /**
+     * @return id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     *test
+     */
+    public void addRegel(FactuurRegel factuurRegel){
+        this.regels.add(factuurRegel);
     }
 
     /**
@@ -116,12 +130,20 @@ public class Factuur implements Serializable {
         String kortingstring = "Korting: €" + Math.round(korting) + "\n";
         String hoeveelgescand = "Hoeveelheid gescande artikelen: " + gepasseerdeartikelen + "\n";
         String date = "Datum: " + datum + "\n";
-        //String Factuurregel = "Factuurregel " + regels;
+        String regel = "Factuurregel: ";
+        for(FactuurRegel fr : regels){
+            regel += fr + ", ";
+        }
 
-        return bon + naamvanklant + prijs + kortingstring + hoeveelgescand + date;
+        return bon + naamvanklant + prijs + kortingstring + hoeveelgescand + date + regel;
     }
 
     public int geefGepasseerdeArtikelen(){
         return gepasseerdeartikelen;
     }
 }
+
+   /** Factuur factuur = new Factuur(klant,datum);
+    FactuurRegel factuurRegel = new FactuurRegel(factuur,artikel);
+            regels.add(factuurRegel);
+                    }*/
